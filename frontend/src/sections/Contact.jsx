@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
@@ -15,7 +16,7 @@ export default function Contact({ onSignIn }) {
     setLoading(true)
     const loadingToast = toast.loading('Sending message...')
     try {
-      const response = await fetch('http://localhost:3000/contact/message', {
+      const response = await fetch(`${API_URL}/contact/message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
