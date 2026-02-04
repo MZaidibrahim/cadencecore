@@ -1,70 +1,64 @@
-import React, { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import toast from 'react-hot-toast'
-import { LoadingSpinner } from './Loaders'
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
+import { LoadingSpinner } from "./Loaders";
 
 const navItems = [
-  { id: 'services', label: 'Services' },
-  { id: 'insights', label: 'Insights' },
-  { id: 'approach', label: 'About Us' },
-  { id: 'contact', label: 'Contact' },
-]
+  { id: "services", label: "Services" },
+  { id: "insights", label: "Insights" },
+  { id: "approach", label: "About Us" },
+  { id: "contact", label: "Contact" },
+];
 
 function scrollToId(id) {
-  const el = document.getElementById(id)
+  const el = document.getElementById(id);
   if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
 export default function Navbar({ onSignIn }) {
-  const [open, setOpen] = useState(false)
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const { user, logout } = useAuth()
+  const [open, setOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { user, logout } = useAuth();
 
   const handleClick = (id) => {
-    scrollToId(id)
-    setOpen(false)
-  }
+    scrollToId(id);
+    setOpen(false);
+  };
 
   const handleAuthAction = async () => {
     if (user) {
-      setIsLoggingOut(true)
-      logout()
-      setIsLoggingOut(false)
-      toast.success('Successfully logged out')
+      setIsLoggingOut(true);
+      logout();
+      setIsLoggingOut(false);
+      toast.success("Successfully logged out");
     } else {
-      onSignIn()
+      onSignIn();
     }
-  }
+  };
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
-      <nav
-        aria-label="Global"
-        className="flex items-center p-6 lg:px-8"
-      >
-
+      <nav aria-label="Global" className="flex items-center p-6 lg:px-8">
         {/* Logo */}
         <div className="flex lg:flex-1">
-  <button
-    type="button"
-    onClick={() => handleClick('home')}
-    className="-m-1.5 p-1.5 flex items-center gap-2 text-white"
-  >
-    {/* Icon */}
-    <div className="h-8 w-8 rounded-md bg-white/10 flex items-center justify-center font-semibold">
-      V
-    </div>
+          <button
+            type="button"
+            onClick={() => handleClick("home")}
+            className="-m-1.5 p-1.5 flex items-center gap-2 text-white"
+          >
+            {/* Icon */}
+            <div className="h-8 w-8 rounded-md bg-white/10 flex items-center justify-center font-semibold">
+              V
+            </div>
 
-    {/* Brand name */}
-    <span className="text-sm font-semibold tracking-wide">
-      Vextacore
-    </span>
-  </button>
-</div>
-
-
+            {/* Brand name */}
+            <span className="text-sm font-semibold tracking-wide">
+              Vexta Core
+            </span>
+          </button>
+        </div>
 
         {/* Desktop Links */}
         <div className="hidden lg:flex lg:gap-x-12">
@@ -81,33 +75,32 @@ export default function Navbar({ onSignIn }) {
         </div>
 
         {/* Desktop CTA */}
-<div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
-  {user && (
-    <span className="text-sm font-medium text-white/80">
-      Hi, {user.name}
-    </span>
-  )}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
+          {user && (
+            <span className="text-sm font-medium text-white/80">
+              Hi, {user.name}
+            </span>
+          )}
 
-  <button
-    type="button"
-    disabled={isLoggingOut}
-    onClick={handleAuthAction}
-    className="text-sm font-semibold text-white hover:text-indigo-400 transition flex items-center gap-1"
-  >
-    {isLoggingOut ? (
-      <LoadingSpinner className="h-4 w-4" />
-    ) : user ? (
-      <>
-        Logout <span aria-hidden="true">→</span>
-      </>
-    ) : (
-      <>
-        Log in <span aria-hidden="true">→</span>
-      </>
-    )}
-  </button>
-</div>
-
+          <button
+            type="button"
+            disabled={isLoggingOut}
+            onClick={handleAuthAction}
+            className="text-sm font-semibold text-white hover:text-indigo-400 transition flex items-center gap-1"
+          >
+            {isLoggingOut ? (
+              <LoadingSpinner className="h-4 w-4" />
+            ) : user ? (
+              <>
+                Logout <span aria-hidden="true">→</span>
+              </>
+            ) : (
+              <>
+                Log in <span aria-hidden="true">→</span>
+              </>
+            )}
+          </button>
+        </div>
 
         {/* Mobile menu button */}
         <div className="flex lg:hidden ml-auto">
@@ -119,11 +112,7 @@ export default function Navbar({ onSignIn }) {
             <span className="sr-only">Open main menu</span>
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
               <path
-                d={
-                  open
-                    ? 'M6 18L18 6M6 6l12 12'
-                    : 'M3 6h18M3 12h18M3 18h18'
-                }
+                d={open ? "M6 18L18 6M6 6l12 12" : "M3 6h18M3 12h18M3 18h18"}
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -142,8 +131,7 @@ export default function Navbar({ onSignIn }) {
               onClick={() => setOpen(false)}
               className="-m-1.5 p-1.5 text-white"
             >
-              <span className="sr-only">Close menu</span>
-              ✕
+              <span className="sr-only">Close menu</span>✕
             </button>
           </div>
 
@@ -171,9 +159,9 @@ export default function Navbar({ onSignIn }) {
                   {isLoggingOut ? (
                     <LoadingSpinner className="h-4 w-4" />
                   ) : user ? (
-                    'Logout'
+                    "Logout"
                   ) : (
-                    'Log in'
+                    "Log in"
                   )}
                 </button>
               </div>
@@ -182,5 +170,5 @@ export default function Navbar({ onSignIn }) {
         </div>
       )}
     </header>
-  )
+  );
 }
