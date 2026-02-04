@@ -4,11 +4,9 @@ import toast from 'react-hot-toast'
 import { LoadingSpinner } from './Loaders'
 
 const navItems = [
-  { id: 'home', label: 'Home' },
   { id: 'services', label: 'Services' },
-  { id: 'sectors', label: 'Sectors' },
-  { id: 'approach', label: 'How we work' },
   { id: 'insights', label: 'Insights' },
+  { id: 'approach', label: 'About Us' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -32,8 +30,6 @@ export default function Navbar({ onSignIn }) {
   const handleAuthAction = async () => {
     if (user) {
       setIsLoggingOut(true)
-      await new Promise(resolve => setTimeout(resolve, 1000))
-
       logout()
       setIsLoggingOut(false)
       toast.success('Successfully logged out')
@@ -43,62 +39,135 @@ export default function Navbar({ onSignIn }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100">
-      <div className="container-wide flex items-center justify-between py-3">
-        <button onClick={() => handleClick('home')} className="flex items-center gap-3 transition-transform duration-300 hover:scale-105">
-          <div className="h-10 w-10 flex items-center justify-center rounded-full bg-brand text-white font-semibold">C</div>
-          <div className="text-left">
-            <div className="text-sm font-semibold text-brand">Cadence Core</div>
-            <div className="text-xs text-slate-500">Consultancy</div>
-          </div>
-        </button>
+    <header className="absolute inset-x-0 top-0 z-50">
+      <nav
+        aria-label="Global"
+        className="flex items-center p-6 lg:px-8"
+      >
 
-        <nav className="hidden md:flex items-center gap-2 text-sm">
-          {navItems.map((n) => (
-            <button key={n.id} onClick={() => handleClick(n.id)} className="px-3 py-2 rounded-md hover:bg-slate-50 hover:text-brand transition-all duration-200">
-              {n.label}
+        {/* Logo */}
+        <div className="flex lg:flex-1">
+  <button
+    type="button"
+    onClick={() => handleClick('home')}
+    className="-m-1.5 p-1.5 flex items-center gap-2 text-white"
+  >
+    {/* Icon */}
+    <div className="h-8 w-8 rounded-md bg-white/10 flex items-center justify-center font-semibold">
+      V
+    </div>
+
+    {/* Brand name */}
+    <span className="text-sm font-semibold tracking-wide">
+      Vextacore
+    </span>
+  </button>
+</div>
+
+
+
+        {/* Desktop Links */}
+        <div className="hidden lg:flex lg:gap-x-12">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => handleClick(item.id)}
+              className="text-sm font-semibold text-white/80 hover:text-white transition"
+            >
+              {item.label}
             </button>
           ))}
+        </div>
 
-          {user && (
-            <div className="ml-2 text-s font-semibold text-blue-900">
-              Hi, {user.name}
-            </div>
-          )}
-
+        {/* Desktop CTA */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <button
+            type="button"
             disabled={isLoggingOut}
-            className={`ml-3 flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md ${user ? 'bg-slate-700 hover:bg-slate-800' : 'bg-brand hover:bg-brand-dark'} disabled:opacity-70 disabled:cursor-not-allowed`}
             onClick={handleAuthAction}
+            className="text-sm font-semibold text-white hover:text-indigo-400 transition flex items-center gap-1"
           >
-            {isLoggingOut ? <LoadingSpinner className="h-5 w-5" /> : (user ? 'Logout' : 'Sign in')}
-          </button>
-
-        </nav>
-
-        <div className="md:hidden flex items-center gap-3">
-          <button onClick={handleAuthAction} disabled={isLoggingOut} className="flex w-20 items-center justify-center px-3 py-2 border rounded-full text-sm disabled:opacity-70">
-            {isLoggingOut ? <LoadingSpinner className="h-4 w-4 text-slate-700" /> : (user ? 'Logout' : 'Sign in')}
-          </button>
-          <button aria-label="menu" onClick={() => setOpen(!open)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200">
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none"><path d={open ? 'M6 18L18 6M6 6l12 12' : 'M3 6h18M3 12h18M3 18h18'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+            {isLoggingOut ? (
+              <LoadingSpinner className="h-4 w-4" />
+            ) : user ? (
+              'Logout'
+            ) : (
+              <>
+                Log in <span aria-hidden="true">→</span>
+              </>
+            )}
           </button>
         </div>
-      </div>
 
+        {/* Mobile menu button */}
+        <div className="flex lg:hidden">
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
+              <path
+                d={
+                  open
+                    ? 'M6 18L18 6M6 6l12 12'
+                    : 'M3 6h18M3 12h18M3 18h18'
+                }
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden border-t border-slate-100 bg-white">
-          <div className="container-wide flex flex-col py-3">
-            {navItems.map((n) => (
-              <button key={n.id} onClick={() => handleClick(n.id)} className="py-2 text-left text-slate-700">
-                {n.label}
-              </button>
-            ))}
-            <div className="mt-2 flex gap-3">
-              <button onClick={handleAuthAction} className="rounded-full border px-4 py-2">
-                {user ? 'Logout' : 'Sign in'}
-              </button>
-              <button className="rounded-full bg-brand px-4 py-2 text-white">Let's talk</button>
+        <div className="lg:hidden fixed inset-0 z-50 bg-gray-900 p-6">
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="-m-1.5 p-1.5 text-white"
+            >
+              <span className="sr-only">Close menu</span>
+              ✕
+            </button>
+          </div>
+
+          <div className="mt-6 flow-root">
+            <div className="-my-6 divide-y divide-white/10">
+              <div className="space-y-2 py-6">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleClick(item.id)}
+                    className="block w-full text-left rounded-lg px-3 py-2 text-base font-semibold text-white hover:bg-white/5"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+              <div className="py-6">
+                <button
+                  type="button"
+                  onClick={handleAuthAction}
+                  disabled={isLoggingOut}
+                  className="block w-full rounded-lg px-3 py-2.5 text-base font-semibold text-white hover:bg-white/5"
+                >
+                  {isLoggingOut ? (
+                    <LoadingSpinner className="h-4 w-4" />
+                  ) : user ? (
+                    'Logout'
+                  ) : (
+                    'Log in'
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -2,24 +2,24 @@ import React from 'react'
 
 const SERVICES = [
   {
-    title: 'Core banking modernisation',
+    title: 'Data & Analytics Consulting',
     description:
-      'Vendor selection, roadmap design and delivery leadership for core platform upgrades and replacements.',
+      'Transforming raw data into clear, decision-ready insights through dashboards and analysis.',
   },
   {
-    title: 'Enterprise data & analytics',
+    title: 'Pricing & Market Intelligence',
     description:
-      'Data strategy, architecture and migration to unlock insight and regulatory reporting at scale.',
+      'Understanding pricing drivers, market positioning, and value dynamics using real-world data.',
   },
   {
-    title: 'Digital banking & channels',
+    title: 'Business & Strategy Advisory',
     description:
-      'Customer experience design, API enablement and omnichannel integration anchored in real journeys.',
+      'Data-backed strategy and decision-support for founders and leadership teams.',
   },
   {
-    title: 'Change & delivery leadership',
+    title: 'Decision Support & Insights',
     description:
-      'Hands-on delivery leads, PMO and change managers embedded within your organisation.',
+      'Practical insights designed to support confident, evidence-based decisions.',
   },
 ]
 
@@ -30,14 +30,22 @@ export default function Services() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-brand">Services</p>
-            <h2 className="mt-2 text-2xl sm:text-3xl font-semibold">Core transformation, anchored in delivery.</h2>
+            <h2 className="mt-2 text-2xl sm:text-3xl font-semibold">
+              How we help businesses make better decisions.
+            </h2>
           </div>
-          <p className="max-w-xl text-sm text-slate-600">We combine practical programme leadership with specialist banking and data expertise. Every engagement is tailored to the institution's starting point, risk appetite and regulatory landscape.</p>
+          <p className="max-w-xl text-sm text-slate-600">
+            Our services combine analytics and business strategy to support confident,
+            data-backed decision-making.
+          </p>
         </div>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {SERVICES.map((s) => (
-            <article key={s.title} className="rounded-2xl border border-slate-100 bg-slate-50 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-brand/20 hover:bg-white cursor-default">
+            <article
+              key={s.title}
+              className="rounded-2xl border border-slate-100 bg-slate-50 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-brand/20 hover:bg-white"
+            >
               <h3 className="text-base font-semibold text-slate-900">{s.title}</h3>
               <p className="mt-2 text-sm text-slate-600">{s.description}</p>
             </article>
