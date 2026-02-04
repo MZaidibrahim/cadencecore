@@ -81,27 +81,36 @@ export default function Navbar({ onSignIn }) {
         </div>
 
         {/* Desktop CTA */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button
-            type="button"
-            disabled={isLoggingOut}
-            onClick={handleAuthAction}
-            className="text-sm font-semibold text-white hover:text-indigo-400 transition flex items-center gap-1"
-          >
-            {isLoggingOut ? (
-              <LoadingSpinner className="h-4 w-4" />
-            ) : user ? (
-              'Logout'
-            ) : (
-              <>
-                Log in <span aria-hidden="true">→</span>
-              </>
-            )}
-          </button>
-        </div>
+<div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
+  {user && (
+    <span className="text-sm font-medium text-white/80">
+      Hi, {user.name}
+    </span>
+  )}
+
+  <button
+    type="button"
+    disabled={isLoggingOut}
+    onClick={handleAuthAction}
+    className="text-sm font-semibold text-white hover:text-indigo-400 transition flex items-center gap-1"
+  >
+    {isLoggingOut ? (
+      <LoadingSpinner className="h-4 w-4" />
+    ) : user ? (
+      <>
+        Logout <span aria-hidden="true">→</span>
+      </>
+    ) : (
+      <>
+        Log in <span aria-hidden="true">→</span>
+      </>
+    )}
+  </button>
+</div>
+
 
         {/* Mobile menu button */}
-        <div className="flex lg:hidden">
+        <div className="flex lg:hidden ml-auto">
           <button
             type="button"
             onClick={() => setOpen(!open)}
