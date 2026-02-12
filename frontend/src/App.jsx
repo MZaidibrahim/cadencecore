@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Hero from './sections/Hero'
 import Services from './sections/Services'
-import Sectors from './sections/Sectors'
+import WhoWeHelp from './sections/WhoWeHelp'
 import Approach from './sections/Approach'
 import Insights from './sections/Insights'
 import Contact from './sections/Contact'
@@ -24,7 +24,7 @@ function AppContent() {
       <main className="flex-1">
         <Hero />
         <Services />
-        <Sectors />
+        <WhoWeHelp />
         <Approach />
         <Insights />
         <Contact onSignIn={() => setSignOpen(true)} />

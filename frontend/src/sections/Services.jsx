@@ -2,24 +2,24 @@ import React from "react";
 
 const SERVICES = [
   {
-    title: "Core banking modernisation",
+    title: 'Pricing & Market Intelligence',
     description:
-      "Vendor selection, roadmap design and delivery leadership for core platform upgrades and replacements.",
+      'Data-driven pricing strategy, competitor benchmarking, demand modelling, and revenue optimisation to maximise profitability and market positioning.',
   },
   {
-    title: "Enterprise data & analytics",
+    title: 'Business Intelligence & Dashboards',
     description:
-      "Data strategy, architecture and migration to unlock insight and regulatory reporting at scale.",
+      'Custom BI dashboards, KPI frameworks, and performance tracking systems that turn raw data into clear executive insights.',
   },
   {
-    title: "Digital banking & channels",
+    title: 'Strategic Decision Support',
     description:
-      "Customer experience design, API enablement and omnichannel integration anchored in real journeys.",
+      'Scenario modelling, forecasting, and analytics frameworks to support expansion, product launches, and investment decisions.',
   },
   {
-    title: "Change & delivery leadership",
+    title: 'Data Strategy & Analytics Advisory',
     description:
-      "Hands-on delivery leads, PMO and change managers embedded within your organisation.",
+      'End-to-end data strategy design, analytics maturity assessment, and implementation roadmaps to build sustainable analytical capability.',
   },
 ];
 
@@ -33,15 +33,12 @@ export default function Services() {
               Services
             </p>
             <h2 className="mt-2 text-2xl sm:text-3xl font-semibold">
-              Core transformation, anchored in delivery.
-            </h2>
+  Analytics-led transformation, anchored in measurable impact.
+</h2>
           </div>
           <p className="max-w-xl text-sm text-slate-600">
-            We combine practical programme leadership with specialist banking
-            and data expertise. Every engagement is tailored to the
-            institution's starting point, risk appetite and regulatory
-            landscape.
-          </p>
+  We combine advanced analytics, market intelligence, and strategic advisory to help organisations make confident, data-backed decisions. Every engagement is tailored to your growth stage, industry context, and commercial objectives.
+</p>
         </div>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2">

@@ -1,33 +1,82 @@
 import React from 'react'
 
 const STEPS = [
-  { step: '01', title: 'Clarify outcomes', text: 'We listen first: clarifying business outcomes, regulatory constraints and technical starting points.' },
-  { step: '02', title: 'Shape the roadmap', text: 'We create a pragmatic delivery roadmap tying architecture, data and operating model into one plan.' },
-  { step: '03', title: 'Lead delivery', text: 'We embed experienced leads and PMO alongside your teams and partners to drive execution.' },
-  { step: '04', title: 'Transfer capability', text: 'We help shape structures, skills and governance so capability remains once the programme ends.' },
+  {
+    step: '01',
+    title: 'Understand the Problem',
+    text: 'We clarify the decision that needs to be made, the constraints involved, and the context in which the outcome will be used.'
+  },
+  {
+    step: '02',
+    title: 'Analyse What Matters',
+    text: 'We work with available data to identify the variables, trade-offs and signals that genuinely influence outcomes.'
+  },
+  {
+    step: '03',
+    title: 'Design Decision Support',
+    text: 'We translate insight into usable outputs — dashboards, frameworks, or scenario models built for real decision-making.'
+  },
+  {
+    step: '04',
+    title: 'Enable & Embed',
+    text: 'Where required, we support adoption and knowledge transfer so value persists beyond delivery.'
+  },
 ]
 
 export default function Approach() {
   return (
-    <section id="approach" className="bg-white py-16 sm:py-20">
-      <div className="container-wide grid gap-8 lg:grid-cols-[1fr,420px]">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-brand">How we work</p>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-semibold">Senior practitioners, embedded with your teams.</h2>
-          <p className="mt-4 text-sm text-slate-600">We operate as a boutique consultancy — small, senior teams who are close to the detail but comfortable at programme boards and with regulators.</p>
+    <section id="approach" className="bg-white py-20 sm:py-24">
+      <div className="container-wide max-w-6xl mx-auto">
+
+        {/* Section Intro — LEFT ALIGNED */}
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-wider text-brand">
+            How We Work
+          </p>
+
+          <h2 className="mt-3 text-3xl sm:text-4xl font-semibold text-slate-900">
+            Structured thinking. Practical delivery. No theatre.
+          </h2>
+
+          <p className="mt-4 text-base text-slate-600">
+            Our approach is outcome-led and decision-focused — designed to reduce uncertainty,
+            not just produce reports.
+          </p>
         </div>
 
-        <div className="grid gap-4">
-          {STEPS.map(s => (
-            <div key={s.step} className="flex gap-4 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-4 shadow-sm">
-              <div className="h-10 w-10 flex items-center justify-center rounded-full bg-brand text-white font-semibold">{s.step}</div>
-              <div>
-                <h3 className="text-sm font-semibold text-slate-900">{s.title}</h3>
-                <p className="mt-1 text-xs text-slate-600">{s.text}</p>
+        {/* Steps Grid */}
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {STEPS.map((s) => (
+            <div
+              key={s.step}
+              className="group rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-brand/20 hover:bg-white"
+            >
+              <div className="text-sm font-semibold text-brand">
+                {s.step}
               </div>
+
+              <h3 className="mt-3 text-lg font-semibold text-slate-900 transition-colors duration-300 group-hover:text-brand">
+                {s.title}
+              </h3>
+
+              <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                {s.text}
+              </p>
             </div>
           ))}
         </div>
+
+        {/* Differentiator Block */}
+        <div className="mt-20 max-w-3xl">
+          <p className="text-sm font-semibold text-slate-900">
+            What we don’t do
+          </p>
+
+          <p className="mt-3 text-sm text-slate-600">
+            Generic slide decks • Vanity metrics • Over-engineered models • Insight without action
+          </p>
+        </div>
+
       </div>
     </section>
   )

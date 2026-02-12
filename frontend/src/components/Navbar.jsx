@@ -6,7 +6,7 @@ import { LoadingSpinner } from './Loaders'
 const navItems = [
   { id: 'home', label: 'Home' },
   { id: 'services', label: 'Services' },
-  { id: 'sectors', label: 'Who we help' },
+  { id: 'who-we-help', label: 'Who we help' },
   { id: 'approach', label: 'How we work' },
   { id: 'insights', label: 'Insights' },
   { id: 'contact', label: 'Contact' },
