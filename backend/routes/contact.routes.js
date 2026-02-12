@@ -6,12 +6,27 @@ const router = express.Router();
 
 // Create transporter once
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // TLS
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
     },
+    tls: {
+        rejectUnauthorized: false
+    },
+    family: 4 // Force IPv4 (important for Render)
 });
+
+transporter.verify(function (error, success) {
+    if (error) {
+        console.log("SMTP error:", error);
+    } else {
+        console.log("SMTP server is ready");
+    }
+});
+
 
 // POST /contact/message
 router.post('/message', async (req, res) => {
