@@ -1,48 +1,23 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const Message = require('../models/Message');
 
 const router = express.Router();
 
-// Create transporter once
-const dns = require("dns");
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-    },
-    tls: {
-        rejectUnauthorized: false
-    },
-    // This is the key line:
-    lookup: (hostname, options, callback) => {
-        return dns.lookup(hostname, { family: 4 }, callback);
-    }
-});
-
-
-transporter.verify(function (error, success) {
-    if (error) {
-        console.log("SMTP error:", error);
-    } else {
-        console.log("SMTP server is ready");
-    }
-});
-
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // POST /contact/message
 router.post('/message', async (req, res) => {
     try {
         const { firstName, lastName, email, company, message } = req.body;
 
+        // Validation
         if (!firstName || !lastName || !email || !message) {
             return res.status(400).json({ message: 'Please fill in all required fields' });
         }
 
+        // Save to MongoDB first
         const newMessage = new Message({
             firstName,
             lastName,
@@ -51,15 +26,15 @@ router.post('/message', async (req, res) => {
             message,
         });
 
-        await newMessage.save();   // ✅ Save to MongoDB first
+        await newMessage.save();
 
-        // ✅ Send email to your domain inbox
-        await transporter.sendMail({
-            from: `"Cadence Core Website" <${process.env.GMAIL_USER}>`,
-            to: process.env.GMAIL_USER,
+        // Send email via Resend
+        await resend.emails.send({
+            from: 'VextaCore <support@vextacore.com>',
+            to: 'support@vextacore.com',
             subject: 'New Website Contact Message',
             html: `
-                <h3>New Contact Form Submission</h3>
+                <h2>New Contact Form Submission</h2>
                 <p><strong>Name:</strong> ${firstName} ${lastName}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Company:</strong> ${company || 'N/A'}</p>
