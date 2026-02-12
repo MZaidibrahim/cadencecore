@@ -5,10 +5,12 @@ const Message = require('../models/Message');
 const router = express.Router();
 
 // Create transporter once
+const dns = require("dns");
+
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
-    secure: false, // TLS
+    secure: false,
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
@@ -16,8 +18,12 @@ const transporter = nodemailer.createTransport({
     tls: {
         rejectUnauthorized: false
     },
-    family: 4 // Force IPv4 (important for Render)
+    // This is the key line:
+    lookup: (hostname, options, callback) => {
+        return dns.lookup(hostname, { family: 4 }, callback);
+    }
 });
+
 
 transporter.verify(function (error, success) {
     if (error) {
