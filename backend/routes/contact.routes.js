@@ -4,7 +4,7 @@ const Message = require('../models/Message');
 
 const router = express.Router();
 
-// Initialize Resend
+// Initialize Resend with API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // POST /contact/message
@@ -12,12 +12,12 @@ router.post('/message', async (req, res) => {
     try {
         const { firstName, lastName, email, company, message } = req.body;
 
-        // Validation
+        // Basic validation
         if (!firstName || !lastName || !email || !message) {
             return res.status(400).json({ message: 'Please fill in all required fields' });
         }
 
-        // Save to MongoDB first
+        // Save message to MongoDB first
         const newMessage = new Message({
             firstName,
             lastName,
@@ -30,9 +30,10 @@ router.post('/message', async (req, res) => {
 
         // Send email via Resend
         await resend.emails.send({
-            from: 'VextaCore <support@vextacore.com>',
-            to: 'support@vextacore.com',
+            from: `VextaCore <${process.env.GMAIL_USER}>`,
+            to: process.env.GMAIL_USER,
             subject: 'New Website Contact Message',
+            reply_to: email, // So you can directly reply to client
             html: `
                 <h2>New Contact Form Submission</h2>
                 <p><strong>Name:</strong> ${firstName} ${lastName}</p>
